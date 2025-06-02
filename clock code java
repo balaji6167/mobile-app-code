@@ -1,0 +1,36 @@
+package com.example.myapplication;
+
+import android.annotation.SuppressLint;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.DatePicker;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    DatePicker c;
+    @SuppressLint({"MissingflatedId","WrongViewCast"})
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        c = findViewById(R.id.r);
+        if (Build .VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+             c.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                 @Override
+                 public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                 }
+             });
+        }
+    }
+}
